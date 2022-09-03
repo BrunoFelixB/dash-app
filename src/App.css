@@ -1,0 +1,14 @@
+#root {
+  min-width: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  width: auto;
+  min-height: 100vh;
+  margin: 0;
+  font-family: 'Merriweather Sans', sans-serif;
+  background-color: white;
+  box-sizing: border-box;
+}

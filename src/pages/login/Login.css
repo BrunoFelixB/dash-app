@@ -1,0 +1,108 @@
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300&display=swap');
+
+.container_login {
+    display: flex;
+    flex-wrap: wrap;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+}
+
+.left_login {
+    flex-basis: calc(30% - 20px);
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.left_login .headline_login {
+    width: 100%;
+    max-width: 600px;
+}
+
+.left_login .headline_login h1 {
+    font-size: 2.1rem;
+    margin-bottom: 20px;
+    background-color: #0597F2;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+
+.left_login form {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 600px;
+}
+
+.left_login form input {
+    margin: 10px 0;
+    padding: 20px 15px;
+    font-size: 1rem;
+    border-radius: 5px;
+    border: 1px solid #0597F2;
+    outline-color: #d7d5d5;
+    background-color: #efefef;
+    font-family: 'Merriweather Sans', sans-serif;
+}
+
+form input:focus {
+    outline: none;
+    background-color: #fff;
+    border-color: #0597F2;
+    box-shadow: 0 0 0 4px #05b8e052;
+    transition: all 0.5s ease-in-out;
+}
+
+form input[type="submit"] {
+    background-color: #0597F2;
+    color: #ffffff;
+    font-size: 1rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    cursor: pointer;
+    width: 100%;
+}
+
+form input[type="submit"]:hover {
+    background-color: #0b7cc3;
+}
+
+
+form a {
+    padding: 5px;
+    text-decoration: none;
+    background-color: black;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+
+@media (max-width:768px) {
+    .left_login {
+        flex-basis: 100%;
+        text-align: center;
+        padding-bottom: 30px;
+    }
+}
+
+@media (max-width:768px) {
+    .left_login {
+        padding: 0 20px 30px 20px;
+    }
+
+    .left_login .headline_login p,
+    form a {
+        font-size: 0.9rem;
+    }
+
+    .headline_login {
+        margin-top: 20px;
+    }
+}
