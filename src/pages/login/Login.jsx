@@ -21,7 +21,7 @@ export function Login() {
         catch (error) {
             message.error("Usuario ou senha incorretos");
         }
-    }
+    } 
 
     const recuperar = async (e) => {
 

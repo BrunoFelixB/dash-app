@@ -1,30 +1,18 @@
-import { EditIcon, DeleteIcon } from "@chakra-ui/icons";
-import {
-  Box,
-  Flex,
-  Button,
-  useDisclosure,
-  Table,
-  Thead,
-  Tr,
-  Th,
-  Tbody,
-  Td,
-  useBreakpointValue,
-} from "@chakra-ui/react";
-import ProfessorModal from "../ProfessorModal/ProfessorModal";
-
 import React, { useState, useEffect } from "react";
-
-import { api } from "../../pages/services/api";
-
+import { EditIcon, DeleteIcon } from "@chakra-ui/icons";
+import { Box, Flex, Button, useDisclosure, Table, Thead, Tr,Th, Tbody,Td, useBreakpointValue } from "@chakra-ui/react";
+import ProfessorModal from "../ProfessorModal/ProfessorModal";
+import axios from "axios";
 
 const ProfessorCreate = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [data, setData] = useState([]);
   const [dataEdit, setDataEdit] = useState({});
-  const [student, setStudent] = useState([]);
+  const [prof, setProf] = useState([]);
 
+  
+  const access_token = localStorage.getItem("token")
+  
   const isMobile = useBreakpointValue({
     base: true,
     lg: false,
@@ -39,15 +27,18 @@ const ProfessorCreate = () => {
   }, [setData]);
 
   useEffect(() => {
-    api
-      .get("/admin/student")
-      .then((response) => setStudent(response.data))
-      .catch((err) => {
-        console.error("ops! ocorreu um erro" + err);
-      });
+    axios.get('http://localhost:8080/admin/educator', {
+      headers: {
+        'Authorization': `Bearer ${access_token}`
+      }
+    })
+      .then((res) => {
+        setProf(res.data.message)
+      })
+      .catch((error) => {
+        console.error(error)
+      })
   }, []);
-
-  // console.log(student.message[0]._id)
 
   const handleRemove = (email) => {
     const newArray = data.filter((item) => item.email !== email);
@@ -95,7 +86,7 @@ const ProfessorCreate = () => {
               </Tr>
             </Thead>
             <Tbody>
-              {data.map(({ _id, name, email, senha, course }, index) => (
+              {prof.map(({ _id, name, email, senha, course }, index) => (
                 <Tr key={index} cursor="pointer " _hover={{ bg: "gray.100" }}>
                   <Td maxW={isMobile ? 5 : 50}>{_id}</Td>
                   <Td maxW={isMobile ? 5 : 100}>{name}</Td>

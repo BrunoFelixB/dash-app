@@ -192,21 +192,6 @@
     margin-right: 15px;
 }
 
-.Position_user h1{
-    font-weight: 500;
-    font-size: 15px;
-    color: black;
-    cursor: pointer;
-    padding: 10px;
-    border-radius: 4px;
-}
-
-.Position_user :hover{
-    background-color: rgba(218, 215, 215, 0.556);
-}
-
-
-
 @media (max-width:768px) {
     .logo {
         font-size: 15px;

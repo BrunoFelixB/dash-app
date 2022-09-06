@@ -1,52 +1,62 @@
-import {
-    Modal,
-    ModalOverlay,
-    ModalContent,
-    ModalHeader,
-    ModalFooter,
-    ModalBody,
-    ModalCloseButton,
-    Button,
-    FormControl,
-    FormLabel,
-    Input,
-    Box,
-} from "@chakra-ui/react";
-import { useState } from "react";
+import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, Button, FormControl, FormLabel, Input, Box } from "@chakra-ui/react";
+import React, { useState } from "react";
 
 const ProfessorModal = ({ data, setData, dataEdit, isOpen, onClose }) => {
-    const [name, setName] = useState(dataEdit.name || "");
-    const [email, setEmail] = useState(dataEdit.email || "");
+    const [nome, setName] = useState(dataEdit.name || "");
+    const [emailProf, setEmail] = useState(dataEdit.email || "");
     const [curso, setCurso] = useState(dataEdit.curso || "");
-    const [senha, setSenha] = useState(dataEdit.senha || "");
-    const [confirmaSenha, setconfirmaSenha] = useState(dataEdit.confirmaSenha || "");
+    const [senha, setSenha] = useState("");
+    const [confirmaSenha, setconfirmaSenha] = useState("");
+    const access_token = localStorage.getItem("token")
 
-    const handleSave = () => {
-        if (!name || !email || !curso || !senha || !confirmaSenha) return;
+    function save(e) {
+ 
+        e.preventDefault();
 
-        if (emailAlreadyExists()) {
-            return alert("E-mail já cadastrado!");
+        if (nome.length <= 2) {
+            alert("O nome precisa ter mais de 2 caracteres");
+        } else {
+            if (emailAluno.length <= 2) {
+                alert("O email precisa ter mais de 2 caracteres");
+            } else {
+                if (senha.length <= 2) {
+                    alert("A senha precisa ter mais de 2 caracteres");
+                } else {
+                    if (senha.length <= 2) {
+                        curso("O id do curso precisa ter mais de 2 caracteres");
+                    } else {
+                        if (senha !== confirmaSenha) {
+            
+                            alert("As senhas não são iguais");
+                
+                        } else {
+                                fetch('http://localhost:8080/admin/educator', {
+                                    method: 'POST',
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                        'Authorization': `Bearer ${access_token}`
+                                    },
+                                    body: JSON.stringify({
+                
+                                        name: nome,
+                                        email: emailProf,
+                                        password: senha,
+                                        course: curso
+                
+                                    })
+                                })
+                
+                                    .then(response => response.json())
+                                    .then(json => alert(JSON. stringify(json.message)));
+                
+                                onClose();
+                            }
+                    }
+                }
+            }
         }
 
-        if (senha !== confirmaSenha) {
-            return alert("As senhas não são iguais");
-
-        }
-
-        if (Object.keys(dataEdit).length) {
-            data[dataEdit.index] = { name, email, curso, senha, confirmaSenha };
-        }
-
-        const newDataArray = !Object.keys(dataEdit).length
-            ? [...(data ? data : []), { name, email, curso, senha, confirmaSenha }]
-            : [...(data ? data : [])];
-
-        localStorage.setItem("cad_cliente", JSON.stringify(newDataArray));
-
-        setData(newDataArray);
-
-        onClose();
-    };
+    }
 
     const emailAlreadyExists = () => {
         if (dataEdit.email !== email && data?.length) {
@@ -69,7 +79,7 @@ const ProfessorModal = ({ data, setData, dataEdit, isOpen, onClose }) => {
                                 <FormLabel>Nome</FormLabel>
                                 <Input
                                     type="text"
-                                    value={name}
+                                    value={nome}
                                     onChange={(e) => setName(e.target.value)}
                                 />
                             </Box>
@@ -77,7 +87,7 @@ const ProfessorModal = ({ data, setData, dataEdit, isOpen, onClose }) => {
                                 <FormLabel>E-mail</FormLabel>
                                 <Input
                                     type="email"
-                                    value={email}
+                                    value={emailProf}
                                     onChange={(e) => setEmail(e.target.value)}
                                 />
                             </Box>
@@ -109,7 +119,7 @@ const ProfessorModal = ({ data, setData, dataEdit, isOpen, onClose }) => {
                     </ModalBody>
 
                     <ModalFooter justifyContent="start">
-                        <Button colorScheme="green" mr={3} onClick={handleSave}>
+                        <Button colorScheme="green" mr={3} onClick={save}>
                             SALVAR
                         </Button>
                         <Button colorScheme="red" onClick={onClose}>

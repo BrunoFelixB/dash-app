@@ -1,45 +1,50 @@
-import {
-    Modal,
-    ModalOverlay,
-    ModalContent,
-    ModalHeader,
-    ModalFooter,
-    ModalBody,
-    ModalCloseButton,
-    Button,
-    FormControl,
-    FormLabel,
-    Input,
-    Box,
-} from "@chakra-ui/react";
-import { useState } from "react";
+import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, Button, FormControl, FormLabel, Input, Box } from "@chakra-ui/react";
+import React, { useState } from "react";
 
 const CursoModal = ({ data, setData, dataEdit, isOpen, onClose }) => {
     const [title, setTitle] = useState(dataEdit.name || "");
     const [description, setDescription] = useState(dataEdit.email || "");
     const [duration, setDuration] = useState(dataEdit.curso || "");
+    const access_token = localStorage.getItem("token")
+    
+    function save(e) {
 
-    const handleSave = () => {
-        if (!title || !description || !duration ) return;
+        e.preventDefault();
 
-        if (titleAlreadyExists()) {
-            return alert("Curso já cadastrado!");
+        if (title.length <= 2) {
+            alert("O nome precisa ter mais de 2 caracteres");
+        } else {
+            if (description.length <= 2) {
+                alert("A senha precisa ter mais de 2 caracteres");
+            } else {
+                if (duration.length <= 2) {
+                    curso("O id do curso precisa ter mais de 2 caracteres");
+                } else {
+                    fetch('http://localhost:8080/admin/course', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${access_token}`
+                        },
+                        body: JSON.stringify({
+
+                            name: title,
+                            description: description,
+                            duration: duration,
+
+                        })
+                    })
+
+                        .then(response => response.json())
+                        .then(json => alert(JSON.stringify(json.message)));
+
+                    onClose();
+                }
+            }
         }
 
-        if (Object.keys(dataEdit).length) {
-            data[dataEdit.index] = { title, description, duration };
-        }
+    }
 
-        const newDataArray = !Object.keys(dataEdit).length
-            ? [...(data ? data : []), { title, description, duration }]
-            : [...(data ? data : [])];
-
-        localStorage.setItem("cad_cliente", JSON.stringify(newDataArray));
-
-        setData(newDataArray);
-
-        onClose();
-    };
 
     const titleAlreadyExists = () => {
         if (dataEdit.title !== title && data?.length) {
@@ -86,7 +91,7 @@ const CursoModal = ({ data, setData, dataEdit, isOpen, onClose }) => {
                     </ModalBody>
 
                     <ModalFooter justifyContent="start">
-                        <Button colorScheme="green" mr={3} onClick={handleSave}>
+                        <Button colorScheme="green" mr={3} onClick={save}>
                             SALVAR
                         </Button>
                         <Button colorScheme="red" onClick={onClose}>

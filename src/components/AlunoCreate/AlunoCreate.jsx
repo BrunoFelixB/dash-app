@@ -1,29 +1,16 @@
-import { EditIcon, DeleteIcon } from "@chakra-ui/icons";
-import {
-  Box,
-  Flex,
-  Button,
-  useDisclosure,
-  Table,
-  Thead,
-  Tr,
-  Th,
-  Tbody,
-  Td,
-  useBreakpointValue,
-} from "@chakra-ui/react";
-import AlunoModal from "../AlunoModal/AlunoModal";
-
 import React, { useState, useEffect } from "react";
-
-import { api } from "../../pages/services/api";
-
+import { EditIcon, DeleteIcon } from "@chakra-ui/icons";
+import { Box, Flex, Button, useDisclosure, Table, Thead, Tr, Th, Tbody, Td, useBreakpointValue, Spinner } from "@chakra-ui/react";
+import AlunoModal from "../AlunoModal/AlunoModal";
+import axios from "axios";
 
 const AlunoCreate = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [data, setData] = useState([]);
   const [dataEdit, setDataEdit] = useState({});
   const [student, setStudent] = useState([]);
+
+  const access_token = localStorage.getItem("token")
 
   const isMobile = useBreakpointValue({
     base: true,
@@ -38,16 +25,22 @@ const AlunoCreate = () => {
     setData(db_costumer);
   }, [setData]);
 
+  //Fazendo um GET na API 
+
   useEffect(() => {
-    api
-      .get("/admin/student")
-      .then((response) => setStudent(response.data))
-      .catch((err) => {
-        console.error("ops! ocorreu um erro" + err);
-      });
+    axios.get('http://localhost:8080/admin/student', {
+      headers: {
+        'Authorization': `Bearer ${access_token}`
+      }
+    })
+      .then((res) => {
+        setStudent(res.data.message)
+      })
+      .catch((error) => {
+        console.error(error)
+      })
   }, []);
 
-  // console.log(student.message[0]._id)
 
   const handleRemove = (email) => {
     const newArray = data.filter((item) => item.email !== email);
@@ -83,30 +76,25 @@ const AlunoCreate = () => {
                   E-Mail
                 </Th>
                 <Th maxW={isMobile ? 5 : 200} fontSize="20px">
-                  Senha
-                </Th>
-                <Th maxW={isMobile ? 5 : 200} fontSize="20px">
-                  Curso
+                  Id do Curso
                 </Th>
                 <Th p={0}></Th>
                 <Th p={0}></Th>
                 <Th p={0}></Th>
                 <Th p={0}></Th>
               </Tr>
-            </Thead>
-            <Tbody>
-              {data.map(({ _id, name, email, senha, course }, index) => (
+            </Thead> {student.length < 1 ? <Spinner /> : <Tbody>
+              {student.map(({ _id, name, email, course }, index) => (
                 <Tr key={index} cursor="pointer " _hover={{ bg: "gray.100" }}>
                   <Td maxW={isMobile ? 5 : 50}>{_id}</Td>
                   <Td maxW={isMobile ? 5 : 100}>{name}</Td>
                   <Td maxW={isMobile ? 5 : 100}>{email}</Td>
-                  <Td maxW={isMobile ? 5 : 100}>{senha}</Td>
                   <Td maxW={isMobile ? 5 : 100}>{course}</Td>
                   <Td p={0}>
                     <EditIcon
                       fontSize={20}
                       onClick={() => [
-                        setDataEdit({ _id, name, email, senha, course, index }),
+                        setDataEdit({ _id, name, email, course, index }),
                         onOpen(),
                       ]}
                     />
@@ -119,7 +107,8 @@ const AlunoCreate = () => {
                   </Td>
                 </Tr>
               ))}
-            </Tbody>
+            </Tbody>}
+
           </Table>
         </Box>
       </Box>

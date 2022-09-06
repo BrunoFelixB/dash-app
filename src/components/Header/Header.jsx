@@ -2,8 +2,11 @@ import './Header.css'
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../pages/contexts/auth';
+import { Menu, MenuButton, MenuList, MenuGroup, MenuItem, Button} from "@chakra-ui/react";
 
 export function Header(props) {
+
+    const name = localStorage.getItem('name');
 
     const { logout } = useContext(AuthContext);
 
@@ -19,13 +22,25 @@ export function Header(props) {
                     <div className="logo_container">
 
                         <Link className='link' to="/dashboard">
+                            
                             <div className='position_logo'>
-                                <a href="/dashboard" className="logo">MyEdu</a>
+                                <p className="logo" >MyEdu</p>
                             </div>
+
                         </Link>
 
                         <div className='Position_user'>
-                            <h1 onClick={logoutUser}>Sair</h1>
+                            <Menu>
+                                    <MenuButton as={Button} colorScheme='blue'>
+                                        {name}
+                                    </MenuButton>
+                                    <MenuList>
+                                        <MenuGroup>
+                                            <MenuItem>Configurações</MenuItem>
+                                            <MenuItem onClick={logoutUser}> Sair </MenuItem>
+                                        </MenuGroup>
+                                    </MenuList>
+                            </Menu>
                         </div>
 
                     </div>

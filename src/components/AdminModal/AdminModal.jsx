@@ -1,18 +1,5 @@
-import {
-    Modal,
-    ModalOverlay,
-    ModalContent,
-    ModalHeader,
-    ModalFooter,
-    ModalBody,
-    ModalCloseButton,
-    Button,
-    FormControl,
-    FormLabel,
-    Input,
-    Box,
-} from "@chakra-ui/react";
-import { useState } from "react";
+import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, Button, FormControl, FormLabel, Input, Box } from "@chakra-ui/react";
+import React, { useState } from "react";
 
 const AdminModal = ({ data, setData, dataEdit, isOpen, onClose }) => {
     const [name, setName] = useState(dataEdit.name || "");
@@ -20,32 +7,49 @@ const AdminModal = ({ data, setData, dataEdit, isOpen, onClose }) => {
     const [senha, setSenha] = useState(dataEdit.senha || "");
     const [confirmaSenha, setconfirmaSenha] = useState(dataEdit.confirmaSenha || "");
 
-    const handleSave = () => {
-        if (!name || !email || !senha || !confirmaSenha) return;
 
-        if (emailAlreadyExists()) {
-            return alert("E-mail já cadastrado!");
+    function save(e) {
+
+        e.preventDefault();
+
+        if (nome.length <= 2) {
+            alert("O nome precisa ter mais de 2 caracteres");
+        } else {
+            if (email.length <= 2) {
+                alert("O email precisa ter mais de 2 caracteres");
+            } else {
+                if (senha.length <= 2) {
+                    alert("A senha precisa ter mais de 2 caracteres");
+                } else {
+                    if (senha !== confirmaSenha) {
+
+                        alert("As senhas não são iguais");
+
+                    } else {
+                        fetch('http://localhost:8080/admin/register', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({
+
+                                name: name,
+                                email: email,
+                                password: senha,
+
+                            })
+                        })
+
+                            .then(response => response.json())
+                            .then(json => alert(JSON.stringify(json.message)));
+
+                        onClose();
+                    }
+                }
+            }
         }
 
-        if (senha !== confirmaSenha) {
-            return alert("As senhas não são iguais");
-
-        }
-
-        if (Object.keys(dataEdit).length) {
-            data[dataEdit.index] = { name, email, senha, confirmaSenha };
-        }
-
-        const newDataArray = !Object.keys(dataEdit).length
-            ? [...(data ? data : []), { name, email, senha, confirmaSenha }]
-            : [...(data ? data : [])];
-
-        localStorage.setItem("cad_cliente", JSON.stringify(newDataArray));
-
-        setData(newDataArray);
-
-        onClose();
-    };
+    }
 
     const emailAlreadyExists = () => {
         if (dataEdit.email !== email && data?.length) {
@@ -100,7 +104,7 @@ const AdminModal = ({ data, setData, dataEdit, isOpen, onClose }) => {
                     </ModalBody>
 
                     <ModalFooter justifyContent="start">
-                        <Button colorScheme="green" mr={3} onClick={handleSave}>
+                        <Button colorScheme="green" mr={3} onClick={save}>
                             SALVAR
                         </Button>
                         <Button colorScheme="red" onClick={onClose}>

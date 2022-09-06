@@ -1,29 +1,14 @@
-import { EditIcon, DeleteIcon } from "@chakra-ui/icons";
-import {
-  Box,
-  Flex,
-  Button,
-  useDisclosure,
-  Table,
-  Thead,
-  Tr,
-  Th,
-  Tbody,
-  Td,
-  useBreakpointValue,
-} from "@chakra-ui/react";
-import AdminModal from "../AdminModal/AdminModal";
-
 import React, { useState, useEffect } from "react";
-
-import { api } from "../../pages/services/api";
+import { EditIcon, DeleteIcon } from "@chakra-ui/icons";
+import { Box, Flex, Button, useDisclosure, Table, Thead, Tr, Th, Tbody, Td, useBreakpointValue, Spinner } from "@chakra-ui/react";
+import AdminModal from "../AdminModal/AdminModal";
 
 
 const AdminCreate = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [data, setData] = useState([]);
   const [dataEdit, setDataEdit] = useState({});
-  const [student, setStudent] = useState([]);
+
 
   const isMobile = useBreakpointValue({
     base: true,
@@ -37,17 +22,6 @@ const AdminCreate = () => {
 
     setData(db_costumer);
   }, [setData]);
-
-  useEffect(() => {
-    api
-      .get("/admin/student")
-      .then((response) => setStudent(response.data))
-      .catch((err) => {
-        console.error("ops! ocorreu um erro" + err);
-      });
-  }, []);
-
-  // console.log(student.message[0]._id)
 
   const handleRemove = (email) => {
     const newArray = data.filter((item) => item.email !== email);
@@ -65,7 +39,7 @@ const AdminCreate = () => {
       fontSize="20px"
     >
       <Box maxW={1000} w="100%" h="100vh" py={10} px={2}>
-        <Button colorScheme="blue" onClick={() => [setDataEdit({}), onOpen()]}>
+        <Button colorScheme="facebook" onClick={() => [setDataEdit({}), onOpen()]}>
           NOVO ADMIN
         </Button>
 

@@ -1,29 +1,16 @@
-import { EditIcon, DeleteIcon } from "@chakra-ui/icons";
-import {
-  Box,
-  Flex,
-  Button,
-  useDisclosure,
-  Table,
-  Thead,
-  Tr,
-  Th,
-  Tbody,
-  Td,
-  useBreakpointValue,
-} from "@chakra-ui/react";
-import CursoModal from "../CursoModal/CursoModal";
-
 import React, { useState, useEffect } from "react";
-
-import { api } from "../../pages/services/api";
-
+import { EditIcon, DeleteIcon } from "@chakra-ui/icons";
+import { Box, Flex, Button, useDisclosure, Table, Thead, Tr,Th, Tbody,Td, useBreakpointValue } from "@chakra-ui/react";
+import CursoModal from "../CursoModal/CursoModal";
+import axios from "axios";
 
 const CursoCreate = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [data, setData] = useState([]);
   const [dataEdit, setDataEdit] = useState({});
-  const [student, setStudent] = useState([]);
+  const [course, setCourse] = useState([]);
+
+  const access_token = localStorage.getItem("token")
 
   const isMobile = useBreakpointValue({
     base: true,
@@ -38,16 +25,21 @@ const CursoCreate = () => {
     setData(db_costumer);
   }, [setData]);
 
-  useEffect(() => {
-    api
-      .get("/admin/student")
-      .then((response) => setStudent(response.data))
-      .catch((err) => {
-        console.error("ops! ocorreu um erro" + err);
-      });
-  }, []);
+   //Fazendo um GET na API 
 
-  // console.log(student.message[0]._id)
+   useEffect(() => {
+    axios.get('http://localhost:8080/admin/course', {
+      headers: {
+        'Authorization': `Bearer ${access_token}`
+      }
+    })
+      .then((res) => {
+        setCourse(res.data.courses)
+      })
+      .catch((error) => {
+        console.error(error)
+      })
+  }, []);
 
   const handleRemove = (_id) => {
     const newArray = data.filter((item) => item._id !== _id);
@@ -77,7 +69,7 @@ const CursoCreate = () => {
                   id
                 </Th>
                 <Th maxW={isMobile ? 5 : 200} fontSize="20px">
-                  Título
+                  Nome
                 </Th>
                 <Th maxW={isMobile ? 5 : 200} fontSize="20px">
                   Descrição
@@ -91,17 +83,17 @@ const CursoCreate = () => {
               </Tr>
             </Thead>
             <Tbody>
-              {data.map(({ _id, title, description, duration }, index) => (
+              {course.map(({ _id, name, description, duration }, index) => (
                 <Tr key={index} cursor="pointer " _hover={{ bg: "gray.100" }}>
                   <Td maxW={isMobile ? 5 : 50}>{_id}</Td>
-                  <Td maxW={isMobile ? 5 : 100}>{title}</Td>
+                  <Td maxW={isMobile ? 5 : 100}>{name}</Td>
                   <Td maxW={isMobile ? 5 : 100}>{description}</Td>
                   <Td maxW={isMobile ? 5 : 100}>{duration}</Td>
                   <Td p={0}>
                     <EditIcon
                       fontSize={20}
                       onClick={() => [
-                        setDataEdit({ _id, title, description, duration, index }),
+                        setDataEdit({ _id, name, description, duration, index }),
                         onOpen(),
                       ]}
                     />
