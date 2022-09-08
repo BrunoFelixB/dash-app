@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { EditIcon, DeleteIcon } from "@chakra-ui/icons";
-import { Box, Flex, Button, useDisclosure, Table, Thead, Tr,Th, Tbody,Td, useBreakpointValue } from "@chakra-ui/react";
+import { Box, Flex, Button, useDisclosure, Table, Thead, Tr, Th, Tbody, Td, useBreakpointValue, Spinner } from "@chakra-ui/react";
 import ProfessorModal from "../ProfessorModal/ProfessorModal";
 import axios from "axios";
 
@@ -10,9 +10,9 @@ const ProfessorCreate = () => {
   const [dataEdit, setDataEdit] = useState({});
   const [prof, setProf] = useState([]);
 
-  
+
   const access_token = localStorage.getItem("token")
-  
+
   const isMobile = useBreakpointValue({
     base: true,
     lg: false,
@@ -27,7 +27,7 @@ const ProfessorCreate = () => {
   }, [setData]);
 
   useEffect(() => {
-    axios.get('http://localhost:8080/admin/educator', {
+    axios.get('https://api-myedu.herokuapp.com/admin/educator', {
       headers: {
         'Authorization': `Bearer ${access_token}`
       }
@@ -84,8 +84,7 @@ const ProfessorCreate = () => {
                 <Th p={0}></Th>
                 <Th p={0}></Th>
               </Tr>
-            </Thead>
-            <Tbody>
+            </Thead> {prof.length < 1 ? <Spinner /> : <Tbody>
               {prof.map(({ _id, name, email, senha, course }, index) => (
                 <Tr key={index} cursor="pointer " _hover={{ bg: "gray.100" }}>
                   <Td maxW={isMobile ? 5 : 50}>{_id}</Td>
@@ -110,7 +109,8 @@ const ProfessorCreate = () => {
                   </Td>
                 </Tr>
               ))}
-            </Tbody>
+            </Tbody>}
+
           </Table>
         </Box>
       </Box>

@@ -20,7 +20,7 @@ const CursoModal = ({ data, setData, dataEdit, isOpen, onClose }) => {
                 if (duration.length <= 2) {
                     curso("O id do curso precisa ter mais de 2 caracteres");
                 } else {
-                    fetch('http://localhost:8080/admin/course', {
+                    fetch('https://api-myedu.herokuapp.com/admin/course', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',

@@ -28,7 +28,7 @@ const AlunoCreate = () => {
   //Fazendo um GET na API 
 
   useEffect(() => {
-    axios.get('http://localhost:8080/admin/student', {
+    axios.get('https://api-myedu.herokuapp.com/admin/student', {
       headers: {
         'Authorization': `Bearer ${access_token}`
       }
@@ -110,7 +110,7 @@ const AlunoCreate = () => {
             </Tbody>}
 
           </Table>
-        </Box>
+        </Box> 
       </Box>
       {isOpen && (
         <AlunoModal

@@ -4,7 +4,7 @@ import React, { useState } from "react";
 const AlunoModal = ({ data, setData, dataEdit, isOpen, onClose }) => {
     const [nome, setName] = useState(dataEdit.name || "");
     const [emailAluno, setEmail] = useState(dataEdit.email || "");
-    const [curso, setCurso] = useState(dataEdit.curso || "");
+    const [curso, setCurso] = useState(dataEdit.course || "");
     const [senha, setSenha] = useState("");
     const [confirmaSenha, setconfirmaSenha] = useState("");
     const access_token = localStorage.getItem("token")
@@ -30,7 +30,7 @@ const AlunoModal = ({ data, setData, dataEdit, isOpen, onClose }) => {
                             alert("As senhas não são iguais");
                 
                         } else {
-                                fetch('http://localhost:8080/admin/student', {
+                                fetch('https://api-myedu.herokuapp.com/admin/student', {
                                     method: 'POST',
                                     headers: {
                                         'Content-Type': 'application/json',

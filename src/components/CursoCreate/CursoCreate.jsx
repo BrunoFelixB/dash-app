@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { EditIcon, DeleteIcon } from "@chakra-ui/icons";
-import { Box, Flex, Button, useDisclosure, Table, Thead, Tr,Th, Tbody,Td, useBreakpointValue } from "@chakra-ui/react";
+import { Box, Flex, Button, useDisclosure, Table, Thead, Tr, Th, Tbody, Td, useBreakpointValue, Spinner } from "@chakra-ui/react";
 import CursoModal from "../CursoModal/CursoModal";
 import axios from "axios";
 
@@ -25,10 +25,10 @@ const CursoCreate = () => {
     setData(db_costumer);
   }, [setData]);
 
-   //Fazendo um GET na API 
+  //Fazendo um GET na API 
 
-   useEffect(() => {
-    axios.get('http://localhost:8080/admin/course', {
+  useEffect(() => {
+    axios.get('https://api-myedu.herokuapp.com/admin/course', {
       headers: {
         'Authorization': `Bearer ${access_token}`
       }
@@ -81,8 +81,7 @@ const CursoCreate = () => {
                 <Th p={0}></Th>
                 <Th p={0}></Th>
               </Tr>
-            </Thead>
-            <Tbody>
+            </Thead> {course.length < 1 ? <Spinner /> : <Tbody>
               {course.map(({ _id, name, description, duration }, index) => (
                 <Tr key={index} cursor="pointer " _hover={{ bg: "gray.100" }}>
                   <Td maxW={isMobile ? 5 : 50}>{_id}</Td>
@@ -106,7 +105,7 @@ const CursoCreate = () => {
                   </Td>
                 </Tr>
               ))}
-            </Tbody>
+            </Tbody>}
           </Table>
         </Box>
       </Box>

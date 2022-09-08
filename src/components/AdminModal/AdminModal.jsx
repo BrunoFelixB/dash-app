@@ -26,7 +26,7 @@ const AdminModal = ({ data, setData, dataEdit, isOpen, onClose }) => {
                         alert("As senhas não são iguais");
 
                     } else {
-                        fetch('http://localhost:8080/admin/register', {
+                        fetch('https://api-myedu.herokuapp.com/admin/register', {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json',

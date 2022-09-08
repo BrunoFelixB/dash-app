@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { EditIcon, DeleteIcon } from "@chakra-ui/icons";
-import { Box, Flex, Button, useDisclosure, Table, Thead, Tr, Th, Tbody, Td, useBreakpointValue, Spinner } from "@chakra-ui/react";
+import { Box, Flex, Button, useDisclosure, Table, Thead, Tr, Th, Tbody, Td, useBreakpointValue } from "@chakra-ui/react";
 import AdminModal from "../AdminModal/AdminModal";
 
 

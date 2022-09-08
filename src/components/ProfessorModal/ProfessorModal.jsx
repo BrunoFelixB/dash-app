@@ -10,7 +10,7 @@ const ProfessorModal = ({ data, setData, dataEdit, isOpen, onClose }) => {
     const access_token = localStorage.getItem("token")
 
     function save(e) {
- 
+
         e.preventDefault();
 
         if (nome.length <= 2) {
@@ -26,31 +26,33 @@ const ProfessorModal = ({ data, setData, dataEdit, isOpen, onClose }) => {
                         curso("O id do curso precisa ter mais de 2 caracteres");
                     } else {
                         if (senha !== confirmaSenha) {
-            
+
                             alert("As senhas não são iguais");
-                
+
                         } else {
-                                fetch('http://localhost:8080/admin/educator', {
-                                    method: 'POST',
-                                    headers: {
-                                        'Content-Type': 'application/json',
-                                        'Authorization': `Bearer ${access_token}`
-                                    },
-                                    body: JSON.stringify({
-                
-                                        name: nome,
-                                        email: emailProf,
-                                        password: senha,
-                                        course: curso
-                
-                                    })
+                            fetch('https://api-myedu.herokuapp.com/admin/educator', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'Authorization': `Bearer ${access_token}`
+                                },
+                                body: JSON.stringify({
+
+                                    name: nome,
+                                    email: emailProf,
+                                    password: senha,
+                                    course: curso
+
                                 })
-                
-                                    .then(response => response.json())
-                                    .then(json => alert(JSON. stringify(json.message)));
-                
-                                onClose();
-                            }
+                            })
+
+                                .then(response => response.json())
+                                .then(json => alert(JSON.stringify(json.message)));
+
+
+
+                            onClose();
+                        }
                     }
                 }
             }
