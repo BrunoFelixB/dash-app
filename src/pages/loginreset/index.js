@@ -1,1 +1,1 @@
-export * from "./RecuperaSenha";
+export * from "./Loginreset";
