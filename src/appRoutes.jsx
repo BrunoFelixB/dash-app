@@ -8,7 +8,7 @@ import {
 } from 'react-router-dom'
 
 import { Login } from "./pages/login/Login"
-import { Loginreset } from './pages/Loginreset/Loginreset'
+import { Loginreset } from './pages/loginreset/Loginreset'
 
 import { Dashboard } from "./pages/dashboard/dashboard"
 
