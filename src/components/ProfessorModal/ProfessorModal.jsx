@@ -1,7 +1,7 @@
 import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, Button, FormControl, FormLabel, Input, Box } from "@chakra-ui/react";
 import React, { useState } from "react";
 
-const ProfessorModal = ({ data, setData, dataEdit, isOpen, onClose }) => {
+const ProfessorModal = ({dataEdit, isOpen, onClose }) => {
     const [nome, setName] = useState(dataEdit.name || "");
     const [emailProf, setEmail] = useState(dataEdit.email || "");
     const [curso, setCurso] = useState(dataEdit.curso || "");
@@ -30,28 +30,75 @@ const ProfessorModal = ({ data, setData, dataEdit, isOpen, onClose }) => {
                             alert("As senhas não são iguais");
 
                         } else {
-                            fetch('https://api-myedu.herokuapp.com/admin/educator', {
-                                method: 'POST',
-                                headers: {
-                                    'Content-Type': 'application/json',
-                                    'Authorization': `Bearer ${access_token}`
-                                },
-                                body: JSON.stringify({
 
-                                    name: nome,
-                                    email: emailProf,
-                                    password: senha,
-                                    course: curso
+                            if (dataEdit) {
 
+                                fetch(`https://api-myedu.herokuapp.com/admin/educator/${dataEdit._id}`, {
+                                    method: 'PUT',
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                        'Authorization': `Bearer ${access_token}`
+                                    },
+                                    body: JSON.stringify({
+
+                                        name: nome,
+                                        email: emailProf,
+                                        password: senha,
+                                        course: curso
+
+                                    })
                                 })
-                            })
 
-                                .then(response => response.json())
-                                .then(json => alert(JSON.stringify(json.message)));
+                                    .then((response) => {
+
+                                        if (response.status == 200) {
+
+                                            alert("Professor atualiza com Sucesso!")
 
 
+                                        } else {
 
-                            onClose();
+                                            alert("Confira os dados e tente novamente!")
+                                        }
+                                    })
+
+                                onClose();
+
+                            } else {
+
+                                fetch('https://api-myedu.herokuapp.com/admin/educator', {
+                                    method: 'POST',
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                        'Authorization': `Bearer ${access_token}`
+                                    },
+                                    body: JSON.stringify({
+
+                                        name: nome,
+                                        email: emailProf,
+                                        password: senha,
+                                        course: curso
+
+                                    })
+                                })
+
+                                    .then((response) => {
+
+                                        if (response.status == 200) {
+
+                                            alert("Professor criado com Sucesso!")
+
+
+                                        } else {
+
+                                            alert("Confira os dados e tente novamente!")
+                                        }
+                                    })
+
+
+                                onClose();
+                            }
+
                         }
                     }
                 }
@@ -59,14 +106,6 @@ const ProfessorModal = ({ data, setData, dataEdit, isOpen, onClose }) => {
         }
 
     }
-
-    const emailAlreadyExists = () => {
-        if (dataEdit.email !== email && data?.length) {
-            return data.find((item) => item.email === email);
-        }
-
-        return false;
-    };
 
     return (
         <>

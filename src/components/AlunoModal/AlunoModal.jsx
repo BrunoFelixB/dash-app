@@ -10,7 +10,7 @@ const AlunoModal = ({ data, setData, dataEdit, isOpen, onClose }) => {
     const access_token = localStorage.getItem("token")
 
     function save(e) {
- 
+
         e.preventDefault();
 
         if (nome.length <= 2) {
@@ -25,11 +25,47 @@ const AlunoModal = ({ data, setData, dataEdit, isOpen, onClose }) => {
                     if (senha.length <= 2) {
                         curso("O id do curso precisa ter mais de 2 caracteres");
                     } else {
+
                         if (senha !== confirmaSenha) {
-            
+
                             alert("As senhas não são iguais");
-                
+
                         } else {
+
+                            if (dataEdit) {
+
+                                fetch(`https://api-myedu.herokuapp.com/admin/student/${dataEdit._id}`, {
+                                    method: 'PUT',
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                        'Authorization': `Bearer ${access_token}`
+                                    },
+                                    body: JSON.stringify({
+
+                                        name: nome,
+                                        email: emailAluno,
+                                        password: senha,
+                                        course: curso
+
+                                    })
+                                })
+
+                                    .then((response) => {
+
+                                        if (response.status == 200) {
+
+                                            alert("Aluno Atualizado com Sucesso!")
+
+
+                                        } else {
+
+                                            alert("Confira os dados e tente novamente!")
+                                        }
+                                    })
+
+                                onClose();
+
+                            } else {
                                 fetch('https://api-myedu.herokuapp.com/admin/student', {
                                     method: 'POST',
                                     headers: {
@@ -37,25 +73,35 @@ const AlunoModal = ({ data, setData, dataEdit, isOpen, onClose }) => {
                                         'Authorization': `Bearer ${access_token}`
                                     },
                                     body: JSON.stringify({
-                
+
                                         name: nome,
                                         email: emailAluno,
                                         password: senha,
                                         course: curso
-                
+
                                     })
                                 })
-                
-                                    .then(response => response.json())
-                                    .then(json => alert(JSON. stringify(json.message)));
-                
+
+                                .then((response) => {
+
+                                    if (response.status == 200) {
+
+                                        alert("Aluno criado com Sucesso!")
+
+
+                                    } else {
+
+                                        alert("Confira os dados e tente novamente!")
+                                    }
+                                })
+
                                 onClose();
                             }
+                        }
                     }
                 }
             }
         }
-
     }
 
     return (

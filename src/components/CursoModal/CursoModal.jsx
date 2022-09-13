@@ -1,12 +1,12 @@
 import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, Button, FormControl, FormLabel, Input, Box } from "@chakra-ui/react";
 import React, { useState } from "react";
 
-const CursoModal = ({ data, setData, dataEdit, isOpen, onClose }) => {
+const CursoModal = ({ dataEdit, isOpen, onClose }) => {
     const [title, setTitle] = useState(dataEdit.name || "");
     const [description, setDescription] = useState(dataEdit.email || "");
     const [duration, setDuration] = useState(dataEdit.curso || "");
     const access_token = localStorage.getItem("token")
-    
+
     function save(e) {
 
         e.preventDefault();
@@ -20,39 +20,77 @@ const CursoModal = ({ data, setData, dataEdit, isOpen, onClose }) => {
                 if (duration.length <= 2) {
                     curso("O id do curso precisa ter mais de 2 caracteres");
                 } else {
-                    fetch('https://api-myedu.herokuapp.com/admin/course', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Authorization': `Bearer ${access_token}`
-                        },
-                        body: JSON.stringify({
 
-                            name: title,
-                            description: description,
-                            duration: duration,
+                    if (dataEdit) {
 
+                        fetch(`https://api-myedu.herokuapp.com/admin/course/${dataEdit._id}`, {
+                            method: 'PUT',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Authorization': `Bearer ${access_token}`
+                            },
+                            body: JSON.stringify({
+
+                                name: title,
+                                description: description,
+                                duration: duration,
+
+                            })
                         })
-                    })
 
-                        .then(response => response.json())
-                        .then(json => alert(JSON.stringify(json.message)));
+                            .then((response) => {
 
-                    onClose();
+                                if (response.status == 200) {
+
+                                    alert("Curso atualizado com Sucesso!")
+
+
+                                } else {
+
+                                    alert("Confira os dados e tente novamente!")
+                                }
+                            })
+
+                        onClose();
+
+                    } else {
+
+                        fetch('https://api-myedu.herokuapp.com/admin/course', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Authorization': `Bearer ${access_token}`
+                            },
+                            body: JSON.stringify({
+
+                                name: title,
+                                description: description,
+                                duration: duration,
+
+                            })
+                        })
+
+                            .then((response) => {
+
+                                if (response.status == 200) {
+
+                                    alert("Curso criado com Sucesso!")
+
+
+                                } else {
+
+                                    alert("Confira os dados e tente novamente!")
+                                }
+                            })
+
+                        onClose();
+                    }
+
                 }
             }
         }
 
     }
-
-
-    const titleAlreadyExists = () => {
-        if (dataEdit.title !== title && data?.length) {
-            return data.find((item) => item.title === title);
-        }
-
-        return false;
-    };
 
     return (
         <>
