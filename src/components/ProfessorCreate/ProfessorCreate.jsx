@@ -15,7 +15,7 @@ const ProfessorCreate = () => {
 
   const isMobile = useBreakpointValue({
     base: true,
-    lg: false,
+    lg: false, 
   });
 
   useEffect(() => {

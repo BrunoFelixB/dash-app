@@ -1,7 +1,7 @@
 import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, Button, FormControl, FormLabel, Input, Box } from "@chakra-ui/react";
 import React, { useState } from "react";
 
-const AdminModal = ({ data, setData, dataEdit, isOpen, onClose }) => {
+const AdminModal = ({ dataEdit, isOpen, onClose }) => {
     const [name, setName] = useState(dataEdit.name || "");
     const [email, setEmail] = useState(dataEdit.email || "");
     const [senha, setSenha] = useState(dataEdit.senha || "");
@@ -50,14 +50,6 @@ const AdminModal = ({ data, setData, dataEdit, isOpen, onClose }) => {
         }
 
     }
-
-    const emailAlreadyExists = () => {
-        if (dataEdit.email !== email && data?.length) {
-            return data.find((item) => item.email === email);
-        }
-
-        return false;
-    };
 
     return (
         <>

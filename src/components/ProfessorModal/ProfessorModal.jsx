@@ -1,7 +1,7 @@
 import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, Button, FormControl, FormLabel, Input, Box } from "@chakra-ui/react";
 import React, { useState } from "react";
 
-const ProfessorModal = ({dataEdit, isOpen, onClose }) => {
+const ProfessorModal = ({ dataEdit, isOpen, onClose }) => {
     const [nome, setName] = useState(dataEdit.name || "");
     const [emailProf, setEmail] = useState(dataEdit.email || "");
     const [curso, setCurso] = useState(dataEdit.curso || "");

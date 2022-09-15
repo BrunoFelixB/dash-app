@@ -7,7 +7,7 @@ body {
     box-sizing: border-box;
 }
 
-.container_login {
+.container_login_reset {
     display: flex;
     flex-wrap: wrap;
     height: 100vh;
@@ -15,7 +15,7 @@ body {
     align-items: center;
 }
 
-.left_login {
+.left_login_reset {
     flex-basis: calc(30% - 20px);
     padding: 10px;
     display: flex;
@@ -24,12 +24,12 @@ body {
     align-items: center;
 }
 
-.left_login .headline_login {
+.left_login_reset .headline_login_reset {
     width: 100%;
     max-width: 600px;
 }
 
-.left_login .headline_login h1 {
+.left_login_reset .headline_login_reset {
     font-size: 2.1rem;
     margin-bottom: 20px;
     background-color: #0597F2;
@@ -39,7 +39,7 @@ body {
 }
 
 
-.left_login form {
+.left_login_reset form {
     margin-top: 10px;
     display: flex;
     flex-direction: column;
@@ -47,7 +47,7 @@ body {
     max-width: 600px;
 }
 
-.left_login form input {
+.left_login_reset form input {
     margin: 10px 0;
     padding: 20px 15px;
     font-size: 1rem;
@@ -80,17 +80,6 @@ form input[type="submit"]:hover {
     background-color: #0b7cc3;
 }
 
-
-form a {
-    padding: 5px;
-    text-decoration: none;
-    background-color: black;
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-
 .back__btn {
     position: relative;
     top: -180px;
@@ -98,37 +87,3 @@ form a {
     font-size: 30px;
 }
 
-
-@media (max-width:1290px) {
-    .right img {
-        margin-left: 0px;
-    }
-}
-
-@media (max-width:768px) {
-    .left {
-        flex-basis: 100%;
-        text-align: center;
-        padding-bottom: 30px;
-    }
-
-    .right {
-        padding-top: 30px;
-        flex-basis: 100%;
-    }
-}
-
-@media (max-width:768px) {
-    .left {
-        padding: 0 20px 30px 20px;
-    }
-
-    .left .headline p,
-    form a {
-        font-size: 0.9rem;
-    }
-
-    .headline {
-        margin-top: 20px;
-    }
-}

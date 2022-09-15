@@ -1,12 +1,12 @@
 import './Login.css';
 import { useState, useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { AuthContext } from '../contexts/auth';
-import {message} from 'antd';
+import { ArrowLeftOutlined } from '@ant-design/icons';
+import { message } from 'antd';
+import { Flex } from "@chakra-ui/react";
 
 export function Login() {
-
-    const navigate = useNavigate();
 
     const { login } = useContext(AuthContext);
 
@@ -21,22 +21,28 @@ export function Login() {
         catch (error) {
             message.error("Usuario ou senha incorretos");
         }
-    } 
-
-    const recuperar = async (e) => {
-
-        e.preventDefault();
-        navigate("/recuperar");
-
     }
 
     return (
 
-        <div className="container_login">
+        <Flex
+            h="100vh"
+            align="center"
+            justify="center"
+            fontSize="20px"
+            alignItems="center"
+            flexWrap="wrap"
+        >
 
             <div className="left_login">
-                <div className="headline_login">
-                    <h1>Login Administrador</h1>
+
+                <div className='container_top'>
+                    <div className='back_btn_login'>
+                        <a href="https://myedu-ead.vercel.app/"><ArrowLeftOutlined /></a>
+                    </div>
+                    <div className="headline_login_h1">
+                        <h1>Login Administrador</h1>
+                    </div>
                 </div>
 
                 <form onSubmit={manipulateLogin}>
@@ -57,7 +63,7 @@ export function Login() {
                         onChange={(e) => setPassword(e.target.value)}
                     />
 
-                    <a href="/recuperar" onSubmit={recuperar}> Não consegue acessar sua conta? </a>
+                    <Link className='link' to="/recuperar"> Não consegue acessar sua conta? </Link>
 
                     <input type="submit" value="Entrar" required />
 
@@ -65,8 +71,7 @@ export function Login() {
 
             </div>
 
-        </div>
-
+        </Flex>
 
     );
 }

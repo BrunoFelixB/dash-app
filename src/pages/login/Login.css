@@ -5,7 +5,7 @@
     flex-wrap: wrap;
     height: 100vh;
     justify-content: center;
-    align-items: center;
+    align-items: center; 
 }
 
 .left_login {
@@ -22,15 +22,13 @@
     max-width: 600px;
 }
 
-.left_login .headline_login h1 {
+.left_login .headline_login_h1 {
     font-size: 2.1rem;
-    margin-bottom: 20px;
     background-color: #0597F2;
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
-
 
 .left_login form {
     margin-top: 10px;
@@ -73,36 +71,38 @@ form input[type="submit"]:hover {
     background-color: #0b7cc3;
 }
 
-
-form a {
+.link {
+    font-size: 15px;
     padding: 5px;
-    text-decoration: none;
     background-color: black;
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
+.back_btn_login {
+    font-size: 30px;
+    margin-right: 20px;
+    color: #0597F2;;
+}
 
-@media (max-width:768px) {
+.container_top {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+@media (max-width:1200px) {
     .left_login {
         flex-basis: 100%;
         text-align: center;
         padding-bottom: 30px;
     }
-}
 
-@media (max-width:768px) {
-    .left_login {
-        padding: 0 20px 30px 20px;
+    .headline_login_h1 {
+        font-size: 14px;
     }
 
-    .left_login .headline_login p,
-    form a {
-        font-size: 0.9rem;
-    }
-
-    .headline_login {
-        margin-top: 20px;
-    }
 }

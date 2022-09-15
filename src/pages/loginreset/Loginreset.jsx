@@ -1,6 +1,6 @@
 import './Loginreset.css';
 import { ArrowLeftOutlined } from '@ant-design/icons';
-
+import { Link } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
 
 export function Loginreset() {
@@ -14,16 +14,16 @@ export function Loginreset() {
 
     return (
 
-        <div className="container_login">
+        <div className="container_login_reset">
 
             <div className='back__btn'>
-                <a href="/login" onClick={voltar}><ArrowLeftOutlined /></a>
+                <Link to="/"><ArrowLeftOutlined /></Link>
             </div>
 
-            <div className="left_login">
-                <div className="headline_login">
+            <div className="left_login_reset">
+                <div className="headline_login_reset">
                     <h1>Recuperar Senha</h1>
-                </div>
+            </div>
 
                 <form>
                     <input
