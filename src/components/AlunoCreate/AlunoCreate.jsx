@@ -7,7 +7,7 @@ import axios from "axios";
 const AlunoCreate = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [data, setData] = useState([]);
-  const [dataEdit, setDataEdit] = useState({});
+  const [dataEdit, setDataEdit] = useState("");
   const [student, setStudent] = useState([]);
 
   const access_token = localStorage.getItem("token")
@@ -58,7 +58,7 @@ const AlunoCreate = () => {
       fontSize="20px"
     >
       <Box maxW={1000} w="100%" h="100vh" py={10} px={2}>
-        <Button colorScheme="blue" onClick={() => [setDataEdit({}), onOpen()]}>
+        <Button colorScheme="blue" onClick={() => [setDataEdit(0), onOpen()]}>
           NOVO ALUNO
         </Button>
 

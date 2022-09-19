@@ -31,7 +31,7 @@ const ProfessorModal = ({ dataEdit, isOpen, onClose }) => {
 
                         } else {
 
-                            if (dataEdit) {
+                            if (ddataEdit !== 0) {
 
                                 fetch(`https://api-myedu.herokuapp.com/admin/educator/${dataEdit._id}`, {
                                     method: 'PUT',

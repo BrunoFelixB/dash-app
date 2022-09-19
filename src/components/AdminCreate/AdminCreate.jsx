@@ -7,7 +7,7 @@ import AdminModal from "../AdminModal/AdminModal";
 const AdminCreate = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [data, setData] = useState([]);
-  const [dataEdit, setDataEdit] = useState({});
+  const [dataEdit, setDataEdit] = useState("");
 
 
   const isMobile = useBreakpointValue({
@@ -39,7 +39,7 @@ const AdminCreate = () => {
       fontSize="20px"
     >
       <Box maxW={1000} w="100%" h="100vh" py={10} px={2}>
-        <Button colorScheme="facebook" onClick={() => [setDataEdit({}), onOpen()]}>
+        <Button colorScheme="facebook" onClick={() => [setDataEdit(0), onOpen()]}>
           NOVO ADMIN
         </Button>
 

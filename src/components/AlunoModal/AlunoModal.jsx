@@ -1,7 +1,7 @@
 import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, Button, FormControl, FormLabel, Input, Box } from "@chakra-ui/react";
 import React, { useState } from "react";
 
-const AlunoModal = ({dataEdit, isOpen, onClose }) => {
+const AlunoModal = ({ dataEdit, isOpen, onClose }) => {
     const [nome, setName] = useState(dataEdit.name || "");
     const [emailAluno, setEmail] = useState(dataEdit.email || "");
     const [curso, setCurso] = useState(dataEdit.course || "");
@@ -32,7 +32,7 @@ const AlunoModal = ({dataEdit, isOpen, onClose }) => {
 
                         } else {
 
-                            if (dataEdit) {
+                            if (dataEdit !== 0) {
 
                                 fetch(`https://api-myedu.herokuapp.com/admin/student/${dataEdit._id}`, {
                                     method: 'PUT',
@@ -94,6 +94,7 @@ const AlunoModal = ({dataEdit, isOpen, onClose }) => {
                                         alert("Confira os dados e tente novamente!")
                                     }
                                 })
+
 
                                 onClose();
                             }

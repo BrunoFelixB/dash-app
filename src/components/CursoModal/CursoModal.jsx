@@ -21,7 +21,7 @@ const CursoModal = ({ dataEdit, isOpen, onClose }) => {
                     curso("O id do curso precisa ter mais de 2 caracteres");
                 } else {
 
-                    if (dataEdit) {
+                    if (dataEdit !== 0) {
 
                         fetch(`https://api-myedu.herokuapp.com/admin/course/${dataEdit._id}`, {
                             method: 'PUT',
