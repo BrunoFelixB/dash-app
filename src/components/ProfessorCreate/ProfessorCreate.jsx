@@ -74,9 +74,6 @@ const ProfessorCreate = () => {
                   E-Mail
                 </Th>
                 <Th maxW={isMobile ? 5 : 200} fontSize="20px">
-                  Senha
-                </Th>
-                <Th maxW={isMobile ? 5 : 200} fontSize="20px">
                   Curso
                 </Th>
                 <Th p={0}></Th>
@@ -92,18 +89,17 @@ const ProfessorCreate = () => {
                 <Td maxW={isMobile ? 5 : 100}><Spinner /></Td>
               </Tr>
             </Tbody> : <Tbody>
-              {prof.map(({ _id, name, email, senha, course }, index) => (
+              {prof.map(({ _id, name, email, course}, index) => (
                 <Tr key={index} cursor="pointer " _hover={{ bg: "gray.100" }}>
                   <Td maxW={isMobile ? 5 : 50}>{_id}</Td>
                   <Td maxW={isMobile ? 5 : 100}>{name}</Td>
                   <Td maxW={isMobile ? 5 : 100}>{email}</Td>
-                  <Td maxW={isMobile ? 5 : 100}>{senha}</Td>
                   <Td maxW={isMobile ? 5 : 100}>{course}</Td>
-                  <Td p={0}>
+                  <Td p={0}> 
                     <EditIcon
                       fontSize={20}
                       onClick={() => [
-                        setDataEdit({ _id, name, email, senha, course, index }),
+                        setDataEdit({ _id, name, email, course, index }),
                         onOpen(),
                       ]}
                     />
@@ -123,12 +119,12 @@ const ProfessorCreate = () => {
       </Box>
       {isOpen && (
         <ProfessorModal
-          isOpen={isOpen}
-          onClose={onClose}
-          data={data}
-          setData={setData}
-          dataEdit={dataEdit}
-          setDataEdit={setDataEdit}
+        isOpen={isOpen}
+        onClose={onClose}
+        data={data}
+        setData={setData}
+        dataEdit={dataEdit}
+        setDataEdit={setDataEdit}
         />
       )}
     </Flex>

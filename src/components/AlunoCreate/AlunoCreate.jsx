@@ -81,7 +81,7 @@ const AlunoCreate = () => {
                 <Th p={0}></Th>
                 <Th p={0}></Th>
                 <Th p={0}></Th>
-                <Th p={0}></Th>
+                <Th p={0}></Th> 
               </Tr>
             </Thead> { student.length < 1 ? <Tbody>
                 <Tr cursor="pointer " _hover={{ bg: "gray.100" }}>
@@ -97,7 +97,7 @@ const AlunoCreate = () => {
                   <Td maxW={isMobile ? 5 : 100}>{name}</Td>
                   <Td maxW={isMobile ? 5 : 100}>{email}</Td>
                   <Td maxW={isMobile ? 5 : 100}>{course}</Td>
-                  <Td p={0}>
+                  <Td p={0}> 
                     <EditIcon
                       fontSize={20}
                       onClick={() => [

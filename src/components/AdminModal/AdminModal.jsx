@@ -8,7 +8,7 @@ const AdminModal = ({ dataEdit, isOpen, onClose }) => {
     const [senha, setSenha] = useState(dataEdit.senha || "");
     const [confirmaSenha, setconfirmaSenha] = useState(dataEdit.confirmaSenha || "");
 
-
+ 
     function save(e) {
 
         e.preventDefault();

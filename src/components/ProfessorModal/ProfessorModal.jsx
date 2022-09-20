@@ -6,11 +6,11 @@ const ProfessorModal = ({ dataEdit, isOpen, onClose }) => {
     const toast = useToast()
     const [nome, setName] = useState(dataEdit.name || "");
     const [emailProf, setEmail] = useState(dataEdit.email || "");
-    const [curso, setCurso] = useState(dataEdit.curso || "");
+    const [curso, setCurso] = useState(dataEdit.course || "");
     const [senha, setSenha] = useState("");
     const [confirmaSenha, setconfirmaSenha] = useState("");
     const access_token = localStorage.getItem("token")
-
+ 
     function save(e) {
 
         if (nome.length <= 2) {

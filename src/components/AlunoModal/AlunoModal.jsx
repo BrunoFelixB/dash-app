@@ -10,10 +10,11 @@ const AlunoModal = ({ dataEdit, isOpen, onClose }) => {
     const [senha, setSenha] = useState("");
     const [confirmaSenha, setconfirmaSenha] = useState("");
     const access_token = localStorage.getItem("token")
-
+ 
     function save(e) {
 
         e.preventDefault();
+    
 
         if (nome.length <= 2) {
 
