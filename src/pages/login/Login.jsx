@@ -76,13 +76,15 @@ export function Login() {
 
                     <Link className='link' to="/recuperar"> Não consegue acessar sua conta? </Link>
 
-                    {loading ? <Spinner
-                        thickness='4px'
-                        speed='0.65s'
-                        emptyColor='gray.200'
-                        color='blue.500'
-                        size='lg'
-                    /> : <input type="submit" value="Entrar" required />}
+                    {loading ? <div className='spinner_box'>
+                        <Spinner
+                            thickness='4px'
+                            speed='0.65s'
+                            emptyColor='gray.200'
+                            color='blue.500'
+                            size='lg'
+                        />
+                    </div> : <input type="submit" value="Entrar" required />}
 
                 </form>
 

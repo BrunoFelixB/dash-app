@@ -83,7 +83,14 @@ const AlunoCreate = () => {
                 <Th p={0}></Th>
                 <Th p={0}></Th>
               </Tr>
-            </Thead> {student.length < 1 ? <Spinner /> : <Tbody>
+            </Thead> { student.length < 1 ? <Tbody>
+                <Tr cursor="pointer " _hover={{ bg: "gray.100" }}>
+                  <Td maxW={isMobile ? 5 : 50}><Spinner/></Td>
+                  <Td maxW={isMobile ? 5 : 100}><Spinner/></Td>
+                  <Td maxW={isMobile ? 5 : 100}><Spinner/></Td>
+                  <Td maxW={isMobile ? 5 : 100}><Spinner/></Td>
+                </Tr>
+            </Tbody>  : <Tbody>
               {student.map(({ _id, name, email, course }, index) => (
                 <Tr key={index} cursor="pointer " _hover={{ bg: "gray.100" }}>
                   <Td maxW={isMobile ? 5 : 50}>{_id}</Td>

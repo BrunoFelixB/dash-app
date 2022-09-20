@@ -94,6 +94,11 @@ form input[type="submit"]:hover {
     margin-bottom: 15px;
 }
 
+.spinner_box {
+    display: flex;
+    justify-content: center;
+}
+
 @media (max-width:1200px) {
     .left_login {
         flex-basis: 100%;
