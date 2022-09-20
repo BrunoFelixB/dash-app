@@ -168,6 +168,7 @@ const ProfessorModal = ({ dataEdit, isOpen, onClose }) => {
                                 <Input
                                     type="text"
                                     value={nome}
+                                    placeholder="Ex: João Marcos"
                                     onChange={(e) => setName(e.target.value)}
                                 />
                             </Box>
@@ -175,6 +176,7 @@ const ProfessorModal = ({ dataEdit, isOpen, onClose }) => {
                                 <FormLabel>E-mail</FormLabel>
                                 <Input
                                     type="email"
+                                    placeholder="Ex: João@gmail.com"
                                     value={emailProf}
                                     onChange={(e) => setEmail(e.target.value)}
                                 />
@@ -200,6 +202,7 @@ const ProfessorModal = ({ dataEdit, isOpen, onClose }) => {
                                 <Input
                                     type="text"
                                     value={curso}
+                                    placeholder="Ex: 62df51e76e7eaa211c86ba87"
                                     onChange={(e) => setCurso(e.target.value)}
                                 />
                             </Box>

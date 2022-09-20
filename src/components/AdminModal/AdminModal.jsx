@@ -88,6 +88,7 @@ const AdminModal = ({ dataEdit, isOpen, onClose }) => {
                                 <Input
                                     type="text"
                                     value={name}
+                                    placeholder="Ex: João"
                                     onChange={(e) => setName(e.target.value)}
                                 />
                             </Box>
@@ -96,6 +97,7 @@ const AdminModal = ({ dataEdit, isOpen, onClose }) => {
                                 <Input
                                     type="email"
                                     value={email}
+                                    placeholder="Ex: João@gmail.com"
                                     onChange={(e) => setEmail(e.target.value)}
                                 />
                             </Box>

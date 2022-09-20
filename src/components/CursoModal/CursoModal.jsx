@@ -25,7 +25,7 @@ const CursoModal = ({ dataEdit, isOpen, onClose }) => {
             if (description.length <= 2) {
 
                 toast({
-                    title: "A senha precisa ter mais de 2 caracteres",
+                    title: "A descrição precisa ter mais de 2 caracteres",
                     status: "warning",
                     isClosable: true
                 })
@@ -34,7 +34,7 @@ const CursoModal = ({ dataEdit, isOpen, onClose }) => {
                 if (duration.length <= 2) {
 
                     toast({
-                        title: "O id do curso precisa ter mais de 2 caracteres",
+                        title: "A duração do curso precisa ter mais de 2 caracteres",
                         status: "warning",
                         isClosable: true
                     })
@@ -144,6 +144,7 @@ const CursoModal = ({ dataEdit, isOpen, onClose }) => {
                                 <Input
                                     type="text"
                                     value={title}
+                                    placeholder="Ex: Desenvolvimento Front End"
                                     onChange={(e) => setTitle(e.target.value)}
                                 />
                             </Box>
@@ -152,6 +153,7 @@ const CursoModal = ({ dataEdit, isOpen, onClose }) => {
                                 <Input
                                     type="text"
                                     value={description}
+                                    placeholder="Ex: Esse curso aborda conceitos.."
                                     onChange={(e) => setDescription(e.target.value)}
                                 />
                             </Box>
@@ -160,6 +162,7 @@ const CursoModal = ({ dataEdit, isOpen, onClose }) => {
                                 <Input
                                     type="text"
                                     value={duration}
+                                    placeholder="Ex: 3 semetres"
                                     onChange={(e) => setDuration(e.target.value)}
                                 />
                             </Box>

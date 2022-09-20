@@ -5,7 +5,7 @@ import { Introducion } from "../../components/Introducion/Introducion";
 export function Dashboard() {
     return (
         <>
-            <Header/>
+            <Header number = '1'/>
             <Introducion/>
         </>
     )
