@@ -3,23 +3,33 @@ import { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../contexts/auth';
 import { ArrowLeftOutlined } from '@ant-design/icons';
-import { message } from 'antd';
-import { Flex } from "@chakra-ui/react";
+import { Flex, Spinner, useToast } from "@chakra-ui/react";
 
 export function Login() {
 
     const { login } = useContext(AuthContext);
-
+    const toast = useToast()
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [loading, setLoading] = useState(false)
 
     const manipulateLogin = async (e) => {
+
+        setLoading(true)
+
         try {
             e.preventDefault();
             await login(email, password);
         }
         catch (error) {
-            message.error("Usuario ou senha incorretos");
+
+            toast({
+                title: "Usuario ou senha incorretos",
+                status: "error",
+                isClosable: true
+            })
+
+            setLoading(false)
         }
     }
 
@@ -45,6 +55,7 @@ export function Login() {
                     </div>
                 </div>
 
+
                 <form onSubmit={manipulateLogin}>
 
                     <input
@@ -65,7 +76,13 @@ export function Login() {
 
                     <Link className='link' to="/recuperar"> Não consegue acessar sua conta? </Link>
 
-                    <input type="submit" value="Entrar" required />
+                    {loading ? <Spinner
+                        thickness='4px'
+                        speed='0.65s'
+                        emptyColor='gray.200'
+                        color='blue.500'
+                        size='lg'
+                    /> : <input type="submit" value="Entrar" required />}
 
                 </form>
 

@@ -1,7 +1,8 @@
-import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, Button, FormControl, FormLabel, Input, Box } from "@chakra-ui/react";
+import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, Button, FormControl, FormLabel, Input, Box, useToast } from "@chakra-ui/react";
 import React, { useState } from "react";
 
 const AdminModal = ({ dataEdit, isOpen, onClose }) => {
+    const toast = useToast()
     const [name, setName] = useState(dataEdit.name || "");
     const [email, setEmail] = useState(dataEdit.email || "");
     const [senha, setSenha] = useState(dataEdit.senha || "");
@@ -13,17 +14,39 @@ const AdminModal = ({ dataEdit, isOpen, onClose }) => {
         e.preventDefault();
 
         if (nome.length <= 2) {
-            alert("O nome precisa ter mais de 2 caracteres");
+
+            toast({
+                title: "O nome precisa ter mais de 2 caracteres",
+                status: "warning",
+                isClosable: true
+            })
+
         } else {
             if (email.length <= 2) {
-                alert("O email precisa ter mais de 2 caracteres");
+
+                toast({
+                    title: "O email precisa ter mais de 2 caracteres",
+                    status: "warning",
+                    isClosable: true
+                })
+
             } else {
                 if (senha.length <= 2) {
-                    alert("A senha precisa ter mais de 2 caracteres");
-                } else {
+
+                    toast({
+                        title: "O senha precisa ter mais de 2 caracteres",
+                        status: "warning",
+                        isClosable: true
+                    })
+                    
                     if (senha !== confirmaSenha) {
 
-                        alert("As senhas não são iguais");
+                       
+                        toast({
+                            title: "As senhas não são iguais",
+                            status: "error",
+                            isClosable: true
+                        })
 
                     } else {
                         fetch('https://api-myedu.herokuapp.com/admin/register', {

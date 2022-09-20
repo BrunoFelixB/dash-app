@@ -1,7 +1,9 @@
-import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, Button, FormControl, FormLabel, Input, Box } from "@chakra-ui/react";
+import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, Button, FormControl, FormLabel, Input, Box, useToast } from "@chakra-ui/react";
 import React, { useState } from "react";
 
 const AlunoModal = ({ dataEdit, isOpen, onClose }) => {
+
+    const toast = useToast()
     const [nome, setName] = useState(dataEdit.name || "");
     const [emailAluno, setEmail] = useState(dataEdit.email || "");
     const [curso, setCurso] = useState(dataEdit.course || "");
@@ -14,21 +16,49 @@ const AlunoModal = ({ dataEdit, isOpen, onClose }) => {
         e.preventDefault();
 
         if (nome.length <= 2) {
-            alert("O nome precisa ter mais de 2 caracteres");
+
+            toast({
+                title: "O nome precisa ter mais de 2 caracteres",
+                status: "warning",
+                isClosable: true
+            })
+
         } else {
             if (emailAluno.length <= 2) {
-                alert("O email precisa ter mais de 2 caracteres");
+
+                toast({
+                    title: "O email precisa ter mais de 2 caracteres",
+                    status: "warning",
+                    isClosable: true
+                })
+
             } else {
                 if (senha.length <= 2) {
-                    alert("A senha precisa ter mais de 2 caracteres");
+
+                    toast({
+                        title: "O senha precisa ter mais de 2 caracteres",
+                        status: "warning",
+                        isClosable: true
+                    })
+
                 } else {
                     if (senha.length <= 2) {
-                        curso("O id do curso precisa ter mais de 2 caracteres");
+
+                        toast({
+                            title: "O id do curso precisa ter mais de 2 caracteres",
+                            status: "warning",
+                            isClosable: true
+                        })
+
                     } else {
 
                         if (senha !== confirmaSenha) {
 
-                            alert("As senhas não são iguais");
+                            toast({
+                                title: "As senhas não são iguais",
+                                status: "error",
+                                isClosable: true
+                            })
 
                         } else {
 
@@ -54,16 +84,25 @@ const AlunoModal = ({ dataEdit, isOpen, onClose }) => {
 
                                         if (response.status == 200) {
 
-                                            alert("Aluno Atualizado com Sucesso!")
+                                            toast({
+                                                title: "Aluno atualizado com Sucesso!",
+                                                status: "success",
+                                                isClosable: true
+                                            })
 
+                                            onClose();
 
                                         } else {
 
-                                            alert("Confira os dados e tente novamente!")
+                                            toast({
+                                                title: "Confira os dados e tente novamente!",
+                                                status: "error",
+                                                isClosable: true
+                                            })
+
                                         }
                                     })
 
-                                onClose();
 
                             } else {
                                 fetch('https://api-myedu.herokuapp.com/admin/student', {
@@ -82,21 +121,29 @@ const AlunoModal = ({ dataEdit, isOpen, onClose }) => {
                                     })
                                 })
 
-                                .then((response) => {
+                                    .then((response) => {
 
-                                    if (response.status == 200) {
+                                        if (response.status == 200) {
 
-                                        alert("Aluno criado com Sucesso!")
+                                            toast({
+                                                title: "Aluno criado com Sucesso!",
+                                                status: "success",
+                                                isClosable: true
+                                            })
 
+                                            onClose();
 
-                                    } else {
+                                        } else {
 
-                                        alert("Confira os dados e tente novamente!")
-                                    }
-                                })
+                                            toast({
+                                                title: "Confira os dados e tente novamente!",
+                                                status: "error",
+                                                isClosable: true
+                                            })
 
+                                        }
+                                    })
 
-                                onClose();
                             }
                         }
                     }

@@ -1,7 +1,9 @@
-import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, Button, FormControl, FormLabel, Input, Box } from "@chakra-ui/react";
+import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, Button, FormControl, FormLabel, Input, Box, useToast } from "@chakra-ui/react";
 import React, { useState } from "react";
 
 const CursoModal = ({ dataEdit, isOpen, onClose }) => {
+
+    const toast = useToast()
     const [title, setTitle] = useState(dataEdit.name || "");
     const [description, setDescription] = useState(dataEdit.email || "");
     const [duration, setDuration] = useState(dataEdit.curso || "");
@@ -12,13 +14,31 @@ const CursoModal = ({ dataEdit, isOpen, onClose }) => {
         e.preventDefault();
 
         if (title.length <= 2) {
-            alert("O nome precisa ter mais de 2 caracteres");
+            
+            toast({
+                title: "O nome precisa ter mais de 2 caracteres",
+                status: "warning",
+                isClosable: true
+            })
+
         } else {
             if (description.length <= 2) {
-                alert("A senha precisa ter mais de 2 caracteres");
+
+                toast({
+                    title: "A senha precisa ter mais de 2 caracteres",
+                    status: "warning",
+                    isClosable: true
+                })
+
             } else {
                 if (duration.length <= 2) {
-                    curso("O id do curso precisa ter mais de 2 caracteres");
+
+                    toast({
+                        title: "O id do curso precisa ter mais de 2 caracteres",
+                        status: "warning",
+                        isClosable: true
+                    })
+
                 } else {
 
                     if (dataEdit !== 0) {
@@ -41,17 +61,26 @@ const CursoModal = ({ dataEdit, isOpen, onClose }) => {
                             .then((response) => {
 
                                 if (response.status == 200) {
+                                            
+                                    toast({
+                                        title: "Curso atualizado com Sucesso!",
+                                        status: "success",
+                                        isClosable: true
+                                    })
 
-                                    alert("Curso atualizado com Sucesso!")
-
+                                    onClose();
 
                                 } else {
 
-                                    alert("Confira os dados e tente novamente!")
+                                    toast({
+                                        title: "Confira os dados e tente novamente!",
+                                        status: "error",
+                                        isClosable: true
+                                    })
+
                                 }
                             })
 
-                        onClose();
 
                     } else {
 
@@ -73,17 +102,26 @@ const CursoModal = ({ dataEdit, isOpen, onClose }) => {
                             .then((response) => {
 
                                 if (response.status == 200) {
+                                            
+                                    toast({
+                                        title: "Curso criado com Sucesso!",
+                                        status: "success",
+                                        isClosable: true
+                                    })
 
-                                    alert("Curso criado com Sucesso!")
-
+                                    onClose();
 
                                 } else {
 
-                                    alert("Confira os dados e tente novamente!")
+                                    toast({
+                                        title: "Confira os dados e tente novamente!",
+                                        status: "error",
+                                        isClosable: true
+                                    })
+
                                 }
                             })
 
-                        onClose();
                     }
 
                 }

@@ -1,7 +1,9 @@
-import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, Button, FormControl, FormLabel, Input, Box } from "@chakra-ui/react";
+import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, Button, FormControl, FormLabel, Input, Box, useToast } from "@chakra-ui/react";
 import React, { useState } from "react";
 
 const ProfessorModal = ({ dataEdit, isOpen, onClose }) => {
+
+    const toast = useToast()
     const [nome, setName] = useState(dataEdit.name || "");
     const [emailProf, setEmail] = useState(dataEdit.email || "");
     const [curso, setCurso] = useState(dataEdit.curso || "");
@@ -11,27 +13,54 @@ const ProfessorModal = ({ dataEdit, isOpen, onClose }) => {
 
     function save(e) {
 
-        e.preventDefault();
-
         if (nome.length <= 2) {
-            alert("O nome precisa ter mais de 2 caracteres");
+
+            toast({
+                title: "O nome precisa ter mais de 2 caracteres",
+                status: "warning",
+                isClosable: true
+            })
+
         } else {
             if (emailAluno.length <= 2) {
-                alert("O email precisa ter mais de 2 caracteres");
+
+                toast({
+                    title: "O email precisa ter mais de 2 caracteres",
+                    status: "warning",
+                    isClosable: true
+                })
+
             } else {
                 if (senha.length <= 2) {
-                    alert("A senha precisa ter mais de 2 caracteres");
+
+                    toast({
+                        title: "O senha precisa ter mais de 2 caracteres",
+                        status: "warning",
+                        isClosable: true
+                    })
+
                 } else {
                     if (senha.length <= 2) {
-                        curso("O id do curso precisa ter mais de 2 caracteres");
+
+                        toast({
+                            title: "O id do curso precisa ter mais de 2 caracteres",
+                            status: "warning",
+                            isClosable: true
+                        })
+
                     } else {
+
                         if (senha !== confirmaSenha) {
 
-                            alert("As senhas não são iguais");
+                            toast({
+                                title: "As senhas não são iguais",
+                                status: "error",
+                                isClosable: true
+                            })
 
                         } else {
 
-                            if (ddataEdit !== 0) {
+                            if (dataEdit !== 0) {
 
                                 fetch(`https://api-myedu.herokuapp.com/admin/educator/${dataEdit._id}`, {
                                     method: 'PUT',
@@ -53,16 +82,25 @@ const ProfessorModal = ({ dataEdit, isOpen, onClose }) => {
 
                                         if (response.status == 200) {
 
-                                            alert("Professor atualiza com Sucesso!")
+                                            toast({
+                                                title: "Professor atualizado com Sucesso!",
+                                                status: "success",
+                                                isClosable: true
+                                            })
 
+                                            onClose();
 
                                         } else {
 
-                                            alert("Confira os dados e tente novamente!")
+                                            toast({
+                                                title: "Confira os dados e tente novamente!",
+                                                status: "error",
+                                                isClosable: true
+                                            })
+
                                         }
                                     })
 
-                                onClose();
 
                             } else {
 
@@ -86,17 +124,26 @@ const ProfessorModal = ({ dataEdit, isOpen, onClose }) => {
 
                                         if (response.status == 200) {
 
-                                            alert("Professor criado com Sucesso!")
+                                            toast({
+                                                title: "Professor criado com Sucesso!",
+                                                status: "success",
+                                                isClosable: true
+                                            })
 
+
+                                            onClose();
 
                                         } else {
 
-                                            alert("Confira os dados e tente novamente!")
+                                            toast({
+                                                title: "Confira os dados e tente novamente!",
+                                                status: "error",
+                                                isClosable: true
+                                            })
+
                                         }
                                     })
 
-
-                                onClose();
                             }
 
                         }
