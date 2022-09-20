@@ -38,12 +38,12 @@ const AdminCreate = () => {
       justify="center"
       fontSize="20px"
     >
-      <Box maxW={1000} w="100%" h="100vh" py={10} px={2}>
+      <Box maxW={1000} w="100%" h="90vh" py={10} px={2}>
         <Button colorScheme="facebook" onClick={() => [setDataEdit(0), onOpen()]}>
           NOVO ADMIN
         </Button>
 
-        <Box overflowY="auto" height="100%">
+        <Box overflowY="auto" height="100%" marginTop="20px">
           <Table mt="6">
             <Thead>
               <Tr>

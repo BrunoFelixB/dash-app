@@ -56,12 +56,12 @@ const CursoCreate = () => {
       justify="center"
       fontSize="20px"
     >
-      <Box maxW={1000} w="100%" h="100vh" py={10} px={2}>
+      <Box maxW={1000} w="100%" h="90vh" py={10} px={2}>
         <Button colorScheme="blue" onClick={() => [setDataEdit(0), onOpen()]}>
           NOVO CURSO
         </Button>
 
-        <Box overflowY="auto" height="100%">
+        <Box overflowY="auto" height="100%" marginTop="20px">
           <Table mt="6">
             <Thead>
               <Tr>
@@ -81,7 +81,14 @@ const CursoCreate = () => {
                 <Th p={0}></Th>
                 <Th p={0}></Th>
               </Tr>
-            </Thead> {course.length < 1 ? <Spinner /> : <Tbody>
+            </Thead> {course.length < 1 ? <Tbody>
+                <Tr cursor="pointer " _hover={{ bg: "gray.100" }}>
+                  <Td maxW={isMobile ? 5 : 50}><Spinner/></Td>
+                  <Td maxW={isMobile ? 5 : 100}><Spinner/></Td>
+                  <Td maxW={isMobile ? 5 : 100}><Spinner/></Td>
+                  <Td maxW={isMobile ? 5 : 100}><Spinner/></Td>
+                </Tr>
+            </Tbody> : <Tbody>
               {course.map(({ _id, name, description, duration }, index) => (
                 <Tr key={index} cursor="pointer " _hover={{ bg: "gray.100" }}>
                   <Td maxW={isMobile ? 5 : 50}>{_id}</Td>

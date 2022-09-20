@@ -36,7 +36,7 @@ export function Login() {
     return (
 
         <Flex
-            h="100vh"
+            h="100%"
             align="center"
             justify="center"
             fontSize="20px"

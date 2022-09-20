@@ -15,7 +15,7 @@ const ProfessorCreate = () => {
 
   const isMobile = useBreakpointValue({
     base: true,
-    lg: false, 
+    lg: false,
   });
 
   useEffect(() => {
@@ -55,12 +55,12 @@ const ProfessorCreate = () => {
       justify="center"
       fontSize="20px"
     >
-      <Box maxW={1000} w="100%" h="100vh" py={10} px={2}>
+      <Box maxW={1000} w="100%" h="90vh" py={10} px={2}>
         <Button colorScheme="blue" onClick={() => [setDataEdit(0), onOpen()]}>
           NOVO PROFESSOR
         </Button>
 
-        <Box overflowY="auto" height="100%">
+        <Box overflowY="auto" height="100%" marginTop="20px">
           <Table mt="6">
             <Thead>
               <Tr>
@@ -84,7 +84,14 @@ const ProfessorCreate = () => {
                 <Th p={0}></Th>
                 <Th p={0}></Th>
               </Tr>
-            </Thead> {prof.length < 1 ? <Spinner /> : <Tbody>
+            </Thead> {prof.length < 1 ? <Tbody>
+              <Tr cursor="pointer " _hover={{ bg: "gray.100" }}>
+                <Td maxW={isMobile ? 5 : 50}><Spinner /></Td>
+                <Td maxW={isMobile ? 5 : 100}><Spinner /></Td>
+                <Td maxW={isMobile ? 5 : 100}><Spinner /></Td>
+                <Td maxW={isMobile ? 5 : 100}><Spinner /></Td>
+              </Tr>
+            </Tbody> : <Tbody>
               {prof.map(({ _id, name, email, senha, course }, index) => (
                 <Tr key={index} cursor="pointer " _hover={{ bg: "gray.100" }}>
                   <Td maxW={isMobile ? 5 : 50}>{_id}</Td>

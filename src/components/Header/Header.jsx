@@ -2,7 +2,7 @@ import './Header.css'
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../pages/contexts/auth';
-import { Menu, MenuButton, MenuList, MenuGroup, MenuItem, Button} from "@chakra-ui/react";
+import { Menu, MenuButton, MenuList, MenuGroup, MenuItem, Button, Flex } from "@chakra-ui/react";
 
 export function Header(props) {
 
@@ -12,7 +12,7 @@ export function Header(props) {
 
     const logoutUser = () => {
         logout();
-    }
+    } 
 
     return (
         <>
@@ -28,20 +28,6 @@ export function Header(props) {
                             </div>
 
                         </Link>
-
-                        <div className='Position_user'>
-                            <Menu>
-                                    <MenuButton as={Button} colorScheme='blue'>
-                                        {name}
-                                    </MenuButton>
-                                    <MenuList>
-                                        <MenuGroup>
-                                            <MenuItem>Configurações</MenuItem>
-                                            <MenuItem onClick={logoutUser}> Sair </MenuItem>
-                                        </MenuGroup>
-                                    </MenuList>
-                            </Menu>
-                        </div>
 
                     </div>
 
@@ -78,6 +64,21 @@ export function Header(props) {
                         </Link>
 
                     </div>
+
+                    <div className='Position_user'>
+                            <Menu>
+                                    <MenuButton as={Button} colorScheme='blue'>
+                                        {name}
+                                    </MenuButton>
+                                    <MenuList>
+                                        <MenuGroup>
+                                            <MenuItem>Configurações</MenuItem>
+                                            <MenuItem onClick={logoutUser}> Sair </MenuItem>
+                                        </MenuGroup>
+                                    </MenuList>
+                            </Menu>
+                        </div>
+
                 </nav>
             </header>
         </>
